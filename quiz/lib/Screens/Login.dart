@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Landing.dart';
+import 'Instructions.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                      onPressed: () {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => QuizPage()),
+      MaterialPageRoute(builder: (context) => InstructionScreen()),
     );
   },
                     child: const Padding(
