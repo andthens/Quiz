@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quiz/Screens/scoreBoard.dart';
 
 class QuizPage extends StatefulWidget {
   @override
@@ -103,6 +104,11 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
+                 Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ScoreboardScreen()),
+    );
+                
               },
             ),
           ],
@@ -178,22 +184,6 @@ Widget build(BuildContext context) {
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
           ),
-          // SizedBox(height: 16.0),
-          // Card(
-          //   elevation: 4.0,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(16.0),
-          //     child: Center(
-          //       child: Text(
-          //         'Correct Marks: ${correctAnswersCount.toString()}',
-          //         style: TextStyle(
-          //           fontSize: 20.0,
-          //           fontWeight: FontWeight.bold,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     ),

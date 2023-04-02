@@ -20,13 +20,14 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Colors.blueGrey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   // ignore: prefer_const_constructors
                   Padding(
                     padding: const EdgeInsets.all(32.0),
                     // ignore: prefer_const_constructors
                     child: Text(
-                      'Welcome to our App!',
+                      'Welcome',
                       // ignore: prefer_const_constructors
                       style: TextStyle(
                         fontSize: 32.0,
@@ -35,11 +36,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  Image.network(
-                    'https://example.com/logo.png',
-                    height: 200.0,
-                    width: 200.0,
-                  ),
+                  // Image.network(
+                  //   'https://example.com/logo.png',
+                  //   height: 200.0,
+                  //   width: 200.0,
+                  // ),
                 ],
               ),
             ),
@@ -71,12 +72,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                     },
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Password',
                       icon: Icon(Icons.lock),
                     ),
                   ),
-                  SizedBox(height: 32.0),
+                  const SizedBox(height: 32.0),
                   ElevatedButton(
                      onPressed: () {
     Navigator.push(
