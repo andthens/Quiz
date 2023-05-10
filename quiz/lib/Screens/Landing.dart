@@ -11,6 +11,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   int currentQuestionIndex = 0;
    int correctAnswersCount = 0;
+    bool isAnswered = false;
+     late int selectedOptionIndex;
   List<Map<String, dynamic>> questions = [
     {
       'question': 'What is the capital of Australia?',
@@ -58,6 +60,7 @@ class _QuizPageState extends State<QuizPage> {
     setState(() {
       if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
+        selectedOptionIndex = 0;
         resetTimer();
       } else {
         showResult();
@@ -132,7 +135,6 @@ class _QuizPageState extends State<QuizPage> {
 @override
 Widget build(BuildContext context) {
   return Scaffold(
-  
     body: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -154,29 +156,84 @@ Widget build(BuildContext context) {
                     questions[currentQuestionIndex]['question'],
                     style: TextStyle(fontSize: 20.0),
                   ),
-                  SizedBox(height: 16.0),
-                  ...questions[currentQuestionIndex]['options']
-                      .map((option) => InkWell(
-                            onTap: () {
-                              if (option ==
-                                  questions[currentQuestionIndex]['answer']) {
-                                correctAnswersCount++;
-                              }
-                              onNextQuestion();
-                            },
-                            child: Card(
-                              elevation: 2.0,
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(option),
-                              ),
-                            ),
-                          ))
-                      .toList(),
                 ],
               ),
             ),
           ),
+          SizedBox(height: 16.0),
+                  ...List.generate(
+              questions[currentQuestionIndex]['options'].length ~/ 2 + 1,
+              (rowIndex) {
+                int startIndex = rowIndex * 2;
+                return Row(
+                  children: [
+                    ...List.generate(
+                      2,
+                      (columnIndex) {
+                        int optionIndex = startIndex + columnIndex;
+                        if (optionIndex >=
+                            questions[currentQuestionIndex]['options']
+                                .length) {
+                          return SizedBox(width: 16.0);
+                        }
+                        String option =
+                            questions[currentQuestionIndex]['options']
+                                [optionIndex];
+                        return Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 4.0),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isAnswered = true;
+                                  if (option ==
+                                      questions[currentQuestionIndex]
+                                          ['answer']) {
+                                    correctAnswersCount++;
+                                  }
+                                });
+                                Future.delayed(Duration(milliseconds: 500),
+                                    onNextQuestion);
+                              },
+                              child: AnimatedContainer(
+                                duration: Duration(milliseconds: 500),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  color: 
+                                  
+                                      option ==
+                                              questions[currentQuestionIndex]['options']
+                                              
+                                          ? Colors.blue
+                                          : Colors.white,
+                                    
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      blurRadius: 2.0,
+                                      spreadRadius: 1.0,
+                                      offset: Offset(0.0, 1.0),
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text(
+                                    option,
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                ),
+                            ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           SizedBox(height: 16.0),
           Center(
             child: Text(
@@ -189,6 +246,4 @@ Widget build(BuildContext context) {
     ),
   );
 }
-
-
 }
